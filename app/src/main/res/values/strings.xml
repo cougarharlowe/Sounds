@@ -2,5 +2,13 @@
     <string name="app_name">Sounds</string>
     <string name="main_Akey">A</string>
     <string name="main_Bkey">B</string>
+    <string name="main_BBkey">BB</string>
     <string name="main_Ckey">C</string>
+    <string name="main_CSkey">CS</string>
+    <string name="main_Dkey">D</string>
+    <string name="main_Ekey">E</string>
+    <string name="main_Fkey">F</string>
+    <string name="main_FSkey">FS</string>
+    <string name="main_Gkey">G</string>
+    <string name="main_GSkey">GS</string>
 </resources>

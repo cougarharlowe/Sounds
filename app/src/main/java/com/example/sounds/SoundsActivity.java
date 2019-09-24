@@ -8,9 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.media.AudioManager;
+import android.widget.Toast;
 
 
-public class SoundsActivity extends AppCompatActivity {
+public class SoundsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonSoundA;
     private Button buttonSoundB;
     private Button buttonSoundC;
@@ -49,7 +50,7 @@ public class SoundsActivity extends AppCompatActivity {
 
         aNote = SoundPool.load(this, R.raw.scalea, 1);
         bNote = SoundPool.load(this, R.raw.scaleb, 1);
-        cNote = SoundPool.load(this, R.raw.scalec,1);
+        cNote = SoundPool.load(this, R.raw.scalec, 1);
 
     }
 
@@ -58,8 +59,9 @@ public class SoundsActivity extends AppCompatActivity {
         buttonSoundB = findViewById(R.id.button_main_soundB);
         buttonSoundC = findViewById(R.id.button_main_soundC);
     }
+
     private void setListeners() {
-        buttonSoundA.setOnClickListener(new View.OnClickListener(){
+        buttonSoundA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isLoaded) {
@@ -69,12 +71,11 @@ public class SoundsActivity extends AppCompatActivity {
                     float maxVolume = (float) audioManager
                             .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                     float volume = actualVolume / maxVolume;
-                    SoundPool.play(aNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
-                     }
+                    //SoundPool.play(aNote, volume, volume, 1, 0, 1f);
+                    //Log.e("test", "Played sound");
+                }
 
-        }
-
+            }
 
 
         });
@@ -88,8 +89,8 @@ public class SoundsActivity extends AppCompatActivity {
                     float maxVolume = (float) audioManager
                             .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                     float volume = actualVolume / maxVolume;
-                    SoundPool.play(bNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
+                    //SoundPool.play(bNote, volume, volume, 1, 0, 1f);
+                    //Log.e("test", "Played sound");
                 }
 
 
@@ -105,12 +106,57 @@ public class SoundsActivity extends AppCompatActivity {
                     float maxVolume = (float) audioManager
                             .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                     float volume = actualVolume / maxVolume;
-                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
+                    //SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    //Log.e("test", "Played sound");
                 }
 
 
             }
         });
+        buttonSoundA.setOnClickListener(this);
+        buttonSoundB.setOnClickListener(this);
+        buttonSoundC.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (isLoaded) {
+            AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+            float actualVolume = (float) audioManager
+                    .getStreamVolume(AudioManager.STREAM_MUSIC);
+            float maxVolume = (float) audioManager
+                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            float volume = actualVolume / maxVolume;
+            switch (view.getId()) {
+                case R.id.button_main_soundA: {
+                    Toast.makeText(this, "aNote", Toast.LENGTH_SHORT).show();
+                    SoundPool.play(aNote, volume, volume, 1, 0, 1f);
+                    Log.e("test", "Played sound");
+                    break;
+                }
+
+                case R.id.button_main_soundB: {
+                    Toast.makeText(this, "bNote", Toast.LENGTH_SHORT).show();
+                    SoundPool.play(bNote, volume, volume, 1, 0, 1f);
+                    Log.e("test", "Played sound");
+                    break;
+                }
+
+                case R.id.button_main_soundC: {
+                    Toast.makeText(this, "cNote", Toast.LENGTH_SHORT).show();
+                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    Log.e("test", "Played sound");
+                    break;
+                }
+
+            }
+        }
+    }
 }
-}
+
+
+
+/*
+
+
+ */
