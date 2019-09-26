@@ -11,4 +11,7 @@
     <string name="main_FSkey">FS</string>
     <string name="main_Gkey">G</string>
     <string name="main_GSkey">GS</string>
+    <string name="main_song1key">song1</string>
+    <string name="main_song2key">song2</string>
+    <string name="main_song3key">song3</string>
 </resources>
