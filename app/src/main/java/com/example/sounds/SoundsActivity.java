@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.media.AudioManager;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class SoundsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonSoundA;
@@ -26,6 +29,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong1;
     private Button buttonSong2;
     private Button buttonSong3;
+    private long SoundId;
     private int aNote;
     private int bNote;
     private int bbNote;
@@ -40,6 +44,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private float volume;
     private boolean isLoaded = false;
     private SoundPool SoundPool;
+    private Map<Integer, Integer> noteMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,20 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         fsNote = SoundPool.load(this,R.raw.scalefs,1);
         gNote = SoundPool.load(this,R.raw.scaleg,1);
         gsNote = SoundPool.load(this,R.raw.scalegs,1);
+
+        noteMap = new HashMap<>();
+        noteMap.put (buttonSoundA.getId(), aNote);
+        noteMap.put  (buttonSoundB.getId(), bNote);
+        noteMap.put (buttonSoundBb.getId(), bbNote);
+        noteMap.put (buttonSoundC.getId(), cNote);
+        noteMap.put (buttonSoundCs.getId(), csNote);
+        noteMap.put (buttonSoundD.getId(), dNote);
+        noteMap.put (buttonSoundE.getId(), eNote);
+        noteMap.put (buttonSoundF.getId(), fNote);
+        noteMap.put (buttonSoundFs.getId(), fsNote);
+        noteMap.put (buttonSoundG.getId(), gNote);
+        noteMap.put (buttonSoundGs.getId(), gsNote);
+
 
     }
 
@@ -147,23 +166,35 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-        buttonSoundA.setOnClickListener(this);
-        buttonSoundB.setOnClickListener(this);
-        buttonSoundBb.setOnClickListener(this);
-        buttonSoundC.setOnClickListener(this);
-        buttonSoundCs.setOnClickListener(this);
-        buttonSoundD.setOnClickListener(this);
-        buttonSoundE.setOnClickListener(this);
-        buttonSoundF.setOnClickListener(this);
-        buttonSoundFs.setOnClickListener(this);
-        buttonSoundG.setOnClickListener(this);
-        buttonSoundGs.setOnClickListener(this);
         buttonSong1.setOnClickListener(this);
         buttonSong2.setOnClickListener(this);
         buttonSong3.setOnClickListener(this);
 
+        keyboardListener keyboardListener = new keyboardListener();
+        buttonSoundA.setOnClickListener(keyboardListener);
+        buttonSoundB.setOnClickListener(keyboardListener);
+        buttonSoundBb.setOnClickListener(keyboardListener);
+        buttonSoundC.setOnClickListener(keyboardListener);
+        buttonSoundCs.setOnClickListener(keyboardListener);
+        buttonSoundD.setOnClickListener(keyboardListener);
+        buttonSoundE.setOnClickListener(keyboardListener);
+        buttonSoundF.setOnClickListener(keyboardListener);
+        buttonSoundFs.setOnClickListener(keyboardListener);
+        buttonSoundG.setOnClickListener(keyboardListener);
+        buttonSoundGs.setOnClickListener(keyboardListener);
+        //buttonSong1.setOnClickListener(keyboardListener);
+        //buttonSong2.setOnClickListener(keyboardListener);
+        // buttonSong3.setOnClickListener(keyboardListener);
+
     }
 
+    private void delay(int millisDelay) {
+        try {
+            Thread.sleep(millisDelay);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onClick(View view) {
         if (isLoaded) {
@@ -245,29 +276,52 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 case R.id.button_main_song1: {
-                    Toast.makeText(this, "gsNote", Toast.LENGTH_SHORT).show();
-                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
+
                     break;
                 }
 
                 case R.id.button_main_song2: {
                     Toast.makeText(this, "gsNote", Toast.LENGTH_SHORT).show();
-                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+                    SoundPool.play(dNote, volume, volume, 1, 0, 1f);
                     Log.e("test", "Played sound");
                     break;
                 }
 
                 case R.id.button_main_song3: {
-                    Toast.makeText(this, "gsNote", Toast.LENGTH_SHORT).show();
+                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    delay(500);
                     SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
+                    delay(500);
+                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
                     break;
                 }
 
             }
         }
     }
+    private class keyboardListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            // read from my map -- loking up which button was pressed and the play the associated note
+            int songId = noteMap.get(view.getId());
+            SoundPool.play(songId, 1,1,1,0,1);
+
+        }
+    }
+
 }
 
 
