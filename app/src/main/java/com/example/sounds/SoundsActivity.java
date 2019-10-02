@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.media.AudioManager;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,6 +31,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong1;
     private Button buttonSong2;
     private Button buttonSong3;
+    private Button buttonScale;
     private long SoundId;
     private int aNote;
     private int bNote;
@@ -111,6 +114,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong1 = findViewById(R.id.button_main_song1);
         buttonSong2 = findViewById(R.id.button_main_song2);
         buttonSong3 = findViewById(R.id.button_main_song3);
+        buttonScale = findViewById(R.id.button_main_scale);
     }
 
     private void setListeners() {
@@ -169,6 +173,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong1.setOnClickListener(this);
         buttonSong2.setOnClickListener(this);
         buttonSong3.setOnClickListener(this);
+        buttonScale.setOnClickListener(this);
 
         keyboardListener keyboardListener = new keyboardListener();
         buttonSoundA.setOnClickListener(keyboardListener);
@@ -276,7 +281,22 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 case R.id.button_main_song1: {
-
+                    List<Note> song1 = new ArrayList<>();
+                    song1.add(new Note(cNote,500));
+                    song1.add(new Note(gsNote,500));
+                    song1.add(new Note(csNote,500));
+                    song1.add(new Note(cNote,500));
+                    song1.add(new Note(gsNote,500));
+                    song1.add(new Note(csNote,500));
+                    song1.add(new Note(cNote,500));
+                    song1.add(new Note(gsNote,500));
+                    song1.add(new Note(csNote,500));
+                    // for note in song1
+                    for(Note note : song1) {
+                        SoundPool.play(note.getSoundId(), 1, 1, 0, 0, 1f);
+                        delay(note.getDelay());
+                        // delay the right amount
+                    }
                     break;
                 }
 
@@ -288,23 +308,67 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 case R.id.button_main_song3: {
-                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    List<Note> song3 = new ArrayList<>();
+                    song3.add(new Note(cNote,500));
+                    song3.add(new Note(gsNote,500));
+                    song3.add(new Note(csNote,500));
+                    song3.add(new Note(cNote,500));
+                    song3.add(new Note(gsNote,500));
+                    song3.add(new Note(csNote,500));
+                    song3.add(new Note(cNote,500));
+                    song3.add(new Note(gsNote,500));
+                    song3.add(new Note(csNote,500));
+                    // for note in song1
+                    for(Note note : song3) {
+                        SoundPool.play(note.getSoundId(), 1, 1, 0, 0, 1f);
+                        delay(note.getDelay());
+                        // delay the right amount
+
+                    }
+
+
+//                     SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+//                    delay(500);
+//                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
+                    break;
+                }
+
+                case R.id.button_main_scale: {
+                    SoundPool.play(aNote, volume, volume, 1, 0, 1f);
                     delay(500);
-                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
+                    SoundPool.play(bNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(bbNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
                     delay(500);
                     SoundPool.play(csNote, volume, volume, 1, 0, 1f);
                     delay(500);
-                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
+                    SoundPool.play(dNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(eNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(fNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(fsNote, volume, volume, 1, 0, 1f);
+                    delay(500);
+                    SoundPool.play(gNote, volume, volume, 1, 0, 1f);
                     delay(500);
                     SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
-                    delay(500);
-                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
-                    delay(500);
-                    SoundPool.play(cNote, volume, volume, 1, 0, 1f);
-                    delay(500);
-                    SoundPool.play(gsNote, volume, volume, 1, 0, 1f);
-                    delay(500);
-                    SoundPool.play(csNote, volume, volume, 1, 0, 1f);
                     break;
                 }
 
@@ -323,6 +387,8 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 }
+
+
 
 
 
