@@ -15,4 +15,9 @@
     <string name="main_song2key">song2</string>
     <string name="main_song3key">song3</string>
     <string name="main_scalekey">scale</string>
+    <string name="main_recordkey">RECORD</string>
+    <string name="sounds_recording">RECORDING</string>
+    <string name="sounds_record">RECORD</string>
+    <string name="sounds_clear">CLEAR</string>
+
 </resources>

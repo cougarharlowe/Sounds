@@ -32,6 +32,8 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong2;
     private Button buttonSong3;
     private Button buttonScale;
+    private Button buttonRecord;
+    private Button buttonClear;
     private long SoundId;
     private int aNote;
     private int bNote;
@@ -46,8 +48,10 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private int gsNote;
     private float volume;
     private boolean isLoaded = false;
+    private boolean isRecord = false;
     private SoundPool SoundPool;
     private Map<Integer, Integer> noteMap;
+    private List<Note> song2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +119,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong2 = findViewById(R.id.button_main_song2);
         buttonSong3 = findViewById(R.id.button_main_song3);
         buttonScale = findViewById(R.id.button_main_scale);
+        buttonRecord = findViewById(R.id.button_main_record);
     }
 
     private void setListeners() {
@@ -166,14 +171,28 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                     //SoundPool.play(cNote, volume, volume, 1, 0, 1f);
                     //Log.e("test", "Played sound");
                 }
+            }
+        });
+        buttonRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isRecord) {
+                    isRecord = false;
+                    buttonRecord.setText(getString(R.string.sounds_record));
+                    Log.e("test", "Record off");
+                }   else {
+                    isRecord = true;
+                    buttonRecord.setText(getString(R.string.sounds_recording));
+                    Log.e("test", "Record on");
 
-
+                }
             }
         });
         buttonSong1.setOnClickListener(this);
         buttonSong2.setOnClickListener(this);
         buttonSong3.setOnClickListener(this);
         buttonScale.setOnClickListener(this);
+        buttonRecord.setOnClickListener(this);
 
         keyboardListener keyboardListener = new keyboardListener();
         buttonSoundA.setOnClickListener(keyboardListener);
@@ -190,6 +209,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         //buttonSong1.setOnClickListener(keyboardListener);
         //buttonSong2.setOnClickListener(keyboardListener);
         // buttonSong3.setOnClickListener(keyboardListener);
+
 
     }
 
@@ -301,10 +321,15 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 case R.id.button_main_song2: {
-                    Toast.makeText(this, "gsNote", Toast.LENGTH_SHORT).show();
-                    SoundPool.play(dNote, volume, volume, 1, 0, 1f);
-                    Log.e("test", "Played sound");
+                    for(Note note : song2) {
+                        SoundPool.play(note.getSoundId(), 1, 1, 0, 0, 1f);
+                        delay(note.getDelay());
+                        // delay the right amount
+                        Log.e("test", "Played sound");
+
+                }
                     break;
+
                 }
 
                 case R.id.button_main_song3: {
@@ -325,6 +350,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                         // delay the right amount
 
                     }
+
 
 
 //                     SoundPool.play(cNote, volume, volume, 1, 0, 1f);
@@ -372,6 +398,20 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                     break;
                 }
 
+                case R.id.button_main_record: {
+                    if (isRecord) {
+                        isRecord = false;
+                        buttonRecord.setText(getString(R.string.sounds_record));
+                        Log.e("test", "Record off");
+                    }   else {
+                        isRecord = true;
+                        buttonRecord.setText(getString(R.string.sounds_recording));
+                        Log.e("test", "Record on");
+
+                    }
+                    break;
+                }
+
             }
         }
     }
@@ -382,6 +422,12 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
             // read from my map -- loking up which button was pressed and the play the associated note
             int songId = noteMap.get(view.getId());
             SoundPool.play(songId, 1,1,1,0,1);
+            // if statement which checks if record mode is on
+                // if yes, then save note clicked to a list
+                // on click of list, play view.getId
+            if (isRecord) {
+                song2.add(new Note(songId, 500));
+            }
 
         }
     }
