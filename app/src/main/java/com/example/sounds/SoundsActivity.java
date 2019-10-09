@@ -120,6 +120,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong3 = findViewById(R.id.button_main_song3);
         buttonScale = findViewById(R.id.button_main_scale);
         buttonRecord = findViewById(R.id.button_main_record);
+        buttonClear = findViewById(R.id.button_main_clear);
     }
 
     private void setListeners() {
@@ -193,6 +194,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong3.setOnClickListener(this);
         buttonScale.setOnClickListener(this);
         buttonRecord.setOnClickListener(this);
+        buttonClear.setOnClickListener(this);
 
         keyboardListener keyboardListener = new keyboardListener();
         buttonSoundA.setOnClickListener(keyboardListener);
@@ -410,6 +412,13 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                     break;
+                }
+
+                case R.id.button_main_clear: {
+                    if (!isRecord) {
+                        song2.clear();
+                    }
+
                 }
 
             }
